@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Liquid - HTML, CSS - Plugin</title>
+
+	<!-- Link to External Font -->
+	<link rel="stylesheet" href="https://use.typekit.net/lmg8nns.css">
+	<link rel="stylesheet" href="https://use.typekit.net/ccr3hfi.css">
+  <link rel="stylesheet" href="https://use.typekit.net/ccr3hfi.css">
+	<style>
+
+body {
+      background: black;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+.box {
+  background: #222;         /* Dark background for contrast */
+  border-radius: opx;   
+  margin-top: 90px;   /* Rounded corners */
+  //*box-shadow:
+    0 0 19px 3px rgba(255, 255, 255, 0.2),
+    0 0 40px 11px rgba(255, 255, 255, 0.2);
+  padding: 0px;            /* Space inside the box */
+  max-width: 90vw;          /* Responsive width */
+  width: 550px;             /* Default width */
+  border-radius: 13px;        /* Center horizontally with margin */
+  display: flex;
+  justify-content: center;
+}
+
+.box video {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;      /* Match box rounding */
+  display: block;
+}
+
+.box-link {
+  text-decoration: none;
+  display: block;
+  width: fit-content;
+}
+.box-link:visited, .box-link:active {
+  color: inherit;
+}
+
+</style>
+  <body>
+    <a href="https://www.gastonrivetta.myportfolio.com" class="box-link">
+      <div class="box">
+        <video autoplay muted loop playsinline>
+          <source src="assets/GJR_motion_logo.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>      
+      </div>    
+    </a>
+  </body>
+</html>
