@@ -14,7 +14,7 @@
     }
     canvas {
       display: block;
-      cursor: none;  /* This sets the canvas cursor - try different values */
+      cursor: pointer;  /* This sets the canvas cursor - try different values */
     }
     .logo-container {
       position: fixed;
@@ -52,7 +52,7 @@ function setup() {
 }
 
 function draw() {
-  background(48, 48, 48, 90);  // Charcoal color in RGB with transparency
+  background(48, 48, 48, 100);  // Charcoal color in RGB with transparency
   
   // Add new particles at mouse position
   if (frameCount % 5 === 3) {
@@ -79,7 +79,7 @@ class GlyphParticle {
     this.vy = random(-.5, .5);
     this.life = 255;
     this.size = random(12, 72);
-    this.hue = random(110, 170);
+    this.hue = random(5, 35);
   }
 
   update() {
