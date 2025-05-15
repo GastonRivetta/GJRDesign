@@ -1,65 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>GJR Design</title>
-
-	<!-- Link to External Font -->
-	<link rel="stylesheet" href="https://use.typekit.net/lmg8nns.css">
-	<link rel="stylesheet" href="https://use.typekit.net/ccr3hfi.css">
-  <link rel="stylesheet" href="https://use.typekit.net/ccr3hfi.css">
-	<style>
-
-body {
-      background: black;
-      min-height: 100vh;
+  <meta charset="UTF-8">
+  <title>Baskerville Glyph Cursor Trail</title>
+  <!-- Add your Adobe Fonts kit -->
+  <link rel="stylesheet" href="https://use.typekit.net/lmg8nns.css">
+  <style>
+    body {
       margin: 0;
+      overflow: hidden;
+      background: #303030;  /* Charcoal color */
+      cursor: none;  /* This hides the default cursor */
+    }
+    canvas {
+      display: block;
+      cursor: none;  /* This sets the canvas cursor - try different values */
+    }
+    .logo-container {
+      position: fixed;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      z-index: 1000;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
     }
+    .logo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+</head>
+<body>
+  <a href="https://gastonrivetta.myportfolio.com/" target="_blank" class="logo-container">
+    <img src="assets/headofgoose.png" alt="Portfolio Logo">
+  </a>
+  <script>
+let particles = [];
+const glyphs = 'ABCDEXYZ';
 
-.box {
-  background: #222;         /* Dark background for contrast */
-  border-radius: opx;   
-  margin-top: 90px;   /* Rounded corners */
-  //*box-shadow:
-    0 0 19px 3px rgba(255, 255, 255, 0.2),
-    0 0 40px 11px rgba(255, 255, 255, 0.2);
-  padding: 0px;            /* Space inside the box */
-  max-width: 90vw;          /* Responsive width */
-  width: 550px;             /* Default width */
-  border-radius: 13px;        /* Center horizontally with margin */
-  display: flex;
-  justify-content: center;
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  textFont('Quotes-Script');  // Replace with your Adobe Font name
+  textAlign(CENTER, CENTER);
+  colorMode(HSB, 255);
 }
 
-.box video {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;      /* Match box rounding */
-  display: block;
+function draw() {
+  background(48, 48, 48, 90);  // Charcoal color in RGB with transparency
+  
+  // Add new particles at mouse position
+  if (frameCount % 5 === 3) {
+    let glyph = glyphs[floor(random(glyphs.length))];
+    particles.push(new GlyphParticle(mouseX, mouseY, glyph));
+  }
+  
+  // Update and display particles
+  for (let i = particles.length - 1; i >= 0; i--) {
+    particles[i].update();
+    particles[i].display();
+    if (particles[i].isDead()) {
+      particles.splice(i, 1);
+    }
+  }
 }
 
-.box-link {
-  text-decoration: none;
-  display: block;
-  width: fit-content;
-}
-.box-link:visited, .box-link:active {
-  color: inherit;
-}
+class GlyphParticle {
+  constructor(x, y, glyph) {
+    this.x = x;
+    this.y = y;
+    this.glyph = glyph;
+    this.vx = random(-.5, .5);
+    this.vy = random(-.5, .5);
+    this.life = 255;
+    this.size = random(12, 72);
+    this.hue = random(110, 170);
+  }
 
-</style>
-  <body>
-    <a href="https://gastonrivetta.myportfolio.com" class="box-link">
-      <div class="box">
-        <video autoplay muted loop playsinline>
-          <source src="assets/GJR_motion_logo.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>      
-      </div>    
-    </a>
-  </body>
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life -= 4;
+    this.size *= 0.99;
+  }
+
+  display() {
+    noStroke();
+    fill(this.hue, 200, 255, this.life);
+    textSize(this.size);
+    text(this.glyph, this.x, this.y);
+  }
+
+  isDead() {
+    return this.life < 0;
+  }
+}
+</script>
+</body>
 </html>
+
