@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Baskerville Glyph Cursor Trail</title>
+  <title>Gaston Rivetta Design Portfolio</title>
   <!-- Add your Adobe Fonts kit -->
-  <link rel="stylesheet" href="https://use.typekit.net/lmg8nns.css">
+  <link rel="stylesheet" href="https://use.typekit.net/myd1phx.css">
   <style>
     body {
       margin: 0;
@@ -42,11 +42,11 @@
   </a>
   <script>
 let particles = [];
-const glyphs = 'ABCDEXYZ';
+const glyphs = 'WELCOME';
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  textFont('Quotes-Script');  // Replace with your Adobe Font name
+  textFont('eds-market-bold-slant');  // Replace with your Adobe Font name
   textAlign(CENTER, CENTER);
   colorMode(HSB, 255);
 }
@@ -55,7 +55,7 @@ function draw() {
   background(48, 48, 48, 100);  // Charcoal color in RGB with transparency
   
   // Add new particles at mouse position
-  if (frameCount % 5 === 3) {
+  if (frameCount % 7 === 5) {
     let glyph = glyphs[floor(random(glyphs.length))];
     particles.push(new GlyphParticle(mouseX, mouseY, glyph));
   }
