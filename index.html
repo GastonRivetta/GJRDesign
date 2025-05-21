@@ -28,36 +28,54 @@
       justify-content: center;
       align-items: center;
     }
-    .logo-container img {
+    .logo-container video {
       width: 100%;
       height: 100%;
       object-fit: contain;
     }
+    /* Remove old GIF styles */
   </style>
   <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+  <script>
+    // Video control functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.querySelector('.logo-video');
+      const container = document.querySelector('.logo-container');
+      
+      container.addEventListener('mouseenter', function() {
+        video.currentTime = 0; // Reset to start
+        video.play();
+      });
+      
+      container.addEventListener('mouseleave', function() {
+        video.pause();
+        video.currentTime = 0; // Reset to first frame
+      });
+    });
+  </script>
 </head>
 <body>
   <a href="https://gastonrivetta.myportfolio.com/" target="_blank" class="logo-container">
-    <img src="assets/headofgoose.png" alt="Portfolio Logo">
+    <video class="logo-video" muted playsinline>
+      <source src="assets/headshotmotion.mov" type="video/quicktime">
+      <!-- Fallback for broader compatibility -->
+      <source src="assets/headshotmotion.mp4" type="video/mp4">
+    </video>
   </a>
   <script>
 let particles = [];
-const glyphs = 'WELCOME';
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  textFont('eds-market-bold-slant');  // Replace with your Adobe Font name
-  textAlign(CENTER, CENTER);
   colorMode(HSB, 255);
 }
 
 function draw() {
-  background(48, 48, 48, 100);  // Charcoal color in RGB with transparency
+  background(48, 48, 48, 100);
   
   // Add new particles at mouse position
   if (frameCount % 7 === 5) {
-    let glyph = glyphs[floor(random(glyphs.length))];
-    particles.push(new GlyphParticle(mouseX, mouseY, glyph));
+    particles.push(new StarParticle(mouseX, mouseY));
   }
   
   // Update and display particles
@@ -70,30 +88,51 @@ function draw() {
   }
 }
 
-class GlyphParticle {
-  constructor(x, y, glyph) {
+class StarParticle {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.glyph = glyph;
-    this.vx = random(-.5, .5);
-    this.vy = random(-.5, .5);
+    this.vx = random(-.25, .25);
+    this.vy = random(-4, -2);
+    this.gravity = 0.1;
     this.life = 255;
-    this.size = random(12, 72);
+    this.size = random(10, 30);
     this.hue = random(5, 35);
+    this.rotation = random(TWO_PI);
   }
 
   update() {
     this.x += this.vx;
     this.y += this.vy;
-    this.life -= 4;
+    this.vy += this.gravity;
+    this.life -= 2;
     this.size *= 0.99;
+    this.rotation += 0.02;
   }
 
   display() {
+    push();
+    translate(this.x, this.y);
+    rotate(this.rotation);
     noStroke();
     fill(this.hue, 200, 255, this.life);
-    textSize(this.size);
-    text(this.glyph, this.x, this.y);
+    this.drawStar(0, 0, this.size/2, this.size, 5);
+    pop();
+  }
+
+  drawStar(x, y, radius1, radius2, npoints) {
+    let angle = TWO_PI / npoints;
+    let halfAngle = angle/2.0;
+    beginShape();
+    for (let a = 0; a < TWO_PI; a += angle) {
+      let sx = x + cos(a) * radius2;
+      let sy = y + sin(a) * radius2;
+      vertex(sx, sy);
+      sx = x + cos(a+halfAngle) * radius1;
+      sy = y + sin(a+halfAngle) * radius1;
+      vertex(sx, sy);
+    }
+    endShape(CLOSE);
   }
 
   isDead() {
