@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Gaston Rivetta Design Portfolio</title>
-  <!-- Add your Adobe Fonts kit -->
-  <link rel="stylesheet" href="https://use.typekit.net/myd1phx.css">
+  <!-- Update Adobe Fonts kit -->
+  <link rel="stylesheet" href="https://use.typekit.net/ccr3hfi.css">
   <style>
     body {
       margin: 0;
@@ -25,6 +25,7 @@
       height: 300px;
       z-index: 1000;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
     }
@@ -32,6 +33,16 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
+    }
+    .click-text {
+      font-family: "source-sans", sans-serif;
+      color: white;
+      font-size: 18px;
+      margin-top: 20px;
+      text-align: center;
+      font-weight: 700;
+      text-transform: uppercase; 
+      letter-spacing: 5px;
     }
     /* Remove old GIF styles */
   </style>
@@ -61,6 +72,7 @@
       <!-- Fallback for broader compatibility -->
       <source src="assets/headshotmotion.mp4" type="video/mp4">
     </video>
+    <div class="click-text">To My Work</div>
   </a>
   <script>
 let particles = [];
